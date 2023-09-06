@@ -1,0 +1,101 @@
+﻿@using MyBlog.Core;
+@using MyBlog.Models;
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<dynamic>
+
+@{
+    string tagsArray = "";
+}
+
+<div class="container col-lg-10">
+
+    <div class="text-center mb-5">
+        <small class="text-dark opacity-75">A Blog about my Software Development experience.</small>
+    </div>
+
+
+    <!--posts-->
+    <div class="text-black" style="color:#000">
+        @foreach (var item in Model)
+        {
+            <div class="card mb-4 rounded-3 border-1 border-light shadow-sm">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <a href="/blog/@item.slug" class="text-decoration-none text-danger">
+                            <img src="/uploads/@item.file_path" class="img-fluid p-4 rounded-start">
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/blog/@item.slug" class="text-decoration-none text-dark">@item.title</a></h5>
+                            <p class="card-text text-muted"><small>@item.created_at.ToString("MMMM dd, yyyy")</small></p>
+                            <p class="card-text"><a href="/blog/@item.slug" class="text-decoration-none text-dark">@Html.Raw(@item.summary)</a></p>
+                            <hr class="border-secondary me-5" />
+                            <div class="d-flex">
+                                <div class="border-secondary border-end me-3">
+                                    <a href="/blog/@item.slug" class="text-decoration-none text-danger opacity-75 border-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
+                                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                        </svg>
+                                        <span class="ms-1 me-3">@item.comment_count</span>
+                                    </a>
+                                </div>
+                                @{
+                                    foreach (char tag in item.tags)
+                                    {
+                                        tagsArray += tag;
+                                    }
+              
+                                    List<string> tagsList = CommonLib.ConvertStringToWordList(tagsArray);
+
+                                    foreach (var tag in tagsList)
+                                    {
+                                        <label class="ms-1"><a href="/search/@tag" class="text-white bg-danger bg-opacity-75 text-decoration-none px-2 py-1 me-2 rounded-3" style="background-color:#ddd">@tag</a></label>                                        
+                                    }
+                                  
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+
+
+
+    </div>
+
+
+    <!--pagination-->
+
+    <div class="container mt-5">
+        <div class="row">
+            @{
+                if (Model.PageCount > 1)
+                {
+                    <nav>
+
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new X.PagedList.Web.Common.PagedListRenderOptions
+                {
+                PageClasses = new string[] { "page-link" },
+                UlElementClasses = new string[] { "pagination pagination-sm justify-content-center" },
+                LiElementClasses = new string[] { "page-item" },
+                DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+                MaximumPageNumbersToDisplay = 5
+                })
+
+                    </nav>
+                }
+            }
+
+        </div>
+
+
+    </div>
+
+
+</div>

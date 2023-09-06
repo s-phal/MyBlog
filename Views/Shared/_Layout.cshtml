@@ -1,0 +1,152 @@
+﻿@using MyBlog.Core;
+@{    
+    string currentUri = $"{Context.Request.Path}{Context.Request.QueryString}";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4KHMN38FBR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4KHMN38FBR');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <meta name="description" content="@ViewData["Summary"]" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CodeClonerBlog.styles.css" asp-append-version="true" />
+    <link href="/css/datatable.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="/css/jquery.fancybox.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/lib/prism/prism.css">
+    <script src="/lib/prism/prism.js"></script>
+
+
+    <!--TinyMCE-->
+    <script src="/lib/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+
+</head>
+<body>
+    <header>
+        <div class="container mt-4">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <div class="mx-auto justify-content-center">
+                        <ul class="nav nav-pills mb-4 nav-tabs-custom">
+                            <li class="nav-item" role="presentation">
+                                <a href="/about" class="nav-link @CommonLib.SetAboutLinkActive(currentUri) bg-transparent text-black-50 link-danger" style="cursor:pointer">About</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="~/" class="nav-link @CommonLib.SetBlogLinkActive(currentUri) bg-transparent text-black-50" style="cursor:pointer">Blog</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a href="https://www.codecloner.io" class="nav-link bg-transparent text-black-50" style="cursor:pointer">CodeCloner</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="/lib/bootstrap/dist/js/bootstrap.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.js"></script>
+    @*<script src="/js/masonry.pkgd.min.js" defer></script>*@
+
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+    <script>
+        
+        //DataTables
+        $(document).ready(function () {
+            $('#blogAdminPostTable').DataTable();
+        });
+
+        $(document).ready(function () {
+            $('#blogAdminAllCommentsTable').DataTable({
+                "order": []
+            });
+        });
+
+        $(document).ready(function () {
+            $('#blogAdminApprovedCommentsTable').DataTable({
+                "order": []
+            });
+        });
+
+        //Comment Alert Modal
+        $(document).ready(function () {
+            $('#commentModAlert').modal('show');
+        });
+
+    </script>
+
+
+    <!-- Back to Top Code -->
+    <script type="text/javascript">
+
+        //Get the button
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        // When the user scrolls down 60px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 1000 ||
+                document.documentElement.scrollTop > 1000
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+        // When the user clicks on the button, scroll to the top of the document
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+
+
+
+
+
+
+    </script>
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

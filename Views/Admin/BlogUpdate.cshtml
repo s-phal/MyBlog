@@ -1,0 +1,68 @@
+﻿@model MyBlog.Models.BlogViewModel;
+
+<!--svg list-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="delete" viewBox="0 0 22 22">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+    </symbol>
+</svg>
+
+    <div class="bg-white my-5 p-5 shadow rounded-3">
+
+        <form method="post" action="/admin/blog/edit/@Model.Blog.blog_id">
+            <div class="modal-body mb-0">                        
+                <div class="mb-3">
+                    <input type="text" name="Blog.blog_id" value="@Model.Blog.blog_id" class="d-none">
+                    <input type="text" name="Blog.slug" value="@Model.Blog.slug" class="d-none">
+                    <input type="text" name="Blog.title" placeholder="Title of your post" class="form-control" value="@Model.Blog.title" />
+                </div>
+                <div class="mb-3">
+                    <input name="Blog.summary" class="form-control w-50" placeholder="Post Summary" value="@Model.Blog.summary" />
+                </div>
+                <div class="mb-3">
+                    <div class="form-group">
+                        <textarea name="Blog.content" class="form-control" placeholder="What's on your mind?" rows="15">@Model.Blog.content</textarea>
+                    </div>
+                </div>
+            <div class="d-flex">
+                @{
+                    foreach (var blogTag in Model.BlogTags)
+                        {
+                                    
+                            <div class="mb-3 me-2 px-2 py-1 fw-semibold text-success bg-success bg-opacity-10 rounded-2 align-self-center">
+                                <small>@blogTag.name</small>
+                                <a href="/admin/blogtag/delete/@blogTag.blog_tag_id/@Model.Blog.blog_id">
+                                    <svg width="12" height="12" style="fill:gray"><use xlink:href="#delete" /></svg>
+                                </a>
+                            </div>
+                        }
+                }
+            </div>
+                <div class="mb-0">
+                <input type="text" name="BlogTag.name" placeholder="tags" class="form-control" />
+            </div>
+            </div>
+            @Html.AntiForgeryToken()
+                    
+            <button type="submit" class="btn btn-info mt-4 text-white">Update</button>
+            <a href="/admin/" class="btn btn-secondary mt-4">Cancel</a>
+        </form>
+
+    </div>
+
+
+<!--TinyMCE-->
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        menubar: false,
+        plugins: 'anchor autolink codesample image link lists media table mediaembed casechange pageembed linkchecker a11ychecker powerpaste advtable advcode editimage tableofcontents footnotes mergetags typography inlinecss',
+        codesample_languages: [
+            { text: 'HTML/XML', value: 'markup' },
+            { text: 'JavaScript', value: 'javascript' },
+            { text: 'CSS', value: 'css' },
+            { text: 'C#', value: 'csharp' },
+        ],
+        toolbar: 'blocks fontfamily fontsize | bold italic underline strikethrough | link image media  | typography | align | checklist numlist bullist indent | codesample '
+    });
+</script>

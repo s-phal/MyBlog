@@ -1,0 +1,85 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #fff;
+}
+
+.subheading {
+    font-family: 'Heebo', sans-serif;
+    font-size: 16px;
+   
+}
+
+
+.heebo {
+    font-family: 'Heebo', sans-serif;
+}
+
+
+.nav-tabs-custom {
+    border-bottom: 2px solid #DDD;
+}
+
+.nav-tabs .nav-link, .nav-pills .nav-link {
+    color: #2a3142;
+    font-weight: 500;
+}
+
+.nav-tabs-custom {
+    border-bottom: 2px solid #DDD;
+}
+
+    .nav-tabs-custom .nav-item {
+        position: relative;
+    }
+
+        .nav-tabs-custom .nav-item .nav-link {
+            border: none !important;
+            font-weight: 500;
+        }
+
+    .nav-tabs-custom > li > a {
+        color: #2a3142;
+    }
+
+        .nav-tabs-custom > li > a::after {
+            content: "";
+            background: #d95a6f;
+            height: 2px;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: -1px;
+            -webkit-transition: all 250ms ease 0s;
+            transition: all 250ms ease 0s;
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+
+        .nav-tabs-custom > li > a.active::after, .nav-tabs-custom > li:hover > a::after {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+
+        .nav-tabs-custom > li > a.active {
+            color: #d95a6f !important;
+        }
+

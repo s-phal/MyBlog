@@ -1,0 +1,30 @@
+﻿@{
+    string directoryPath = "wwwroot/portfolio/";
+    string[] filePaths = Directory.GetFiles(directoryPath);
+
+    List<string> fileList = new List<string>(filePaths);
+
+    int i = 0;
+}
+
+<div class="container">
+
+    <div class="text-center mb-5">
+        <h5 class="text-dark opacity-75">Portaits</h5>
+    </div>
+
+    <div class="row" data-masonry='{"percentPosition": true }'>
+        @foreach (string filePath in fileList)
+        {
+            i = i + 1;            
+
+            <div class="col-sm-6 col-lg-4 mb-4 ">
+                <a data-fancybox="gallery" href="@filePath.Replace("wwwroot/","")" >
+                    <img src="@filePath.Replace("wwwroot/","")" class="card-img"/>
+                </a>
+            </div>
+
+        }
+    </div>
+
+</div>

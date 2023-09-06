@@ -1,0 +1,137 @@
+﻿@using MyBlog.Models;
+@using MyBlog.Core;
+
+
+@model BlogViewModel;
+
+
+<div class="container-fluid pb-5 pt-4">
+
+    <!--blog container-->
+    <div class="container p-5 bg-white shadow-lg">
+
+        <!--post title-->
+        <div class="col-lg-8 mx-auto">
+            <h2 class="fs-2" style="color:#333;">@Model.Blog.title</h2>
+            <span class="pb-5 text-secondary" style="font-size:.75rem">@Model.Blog.created_at.ToString("MMMM dd, yyyy")</span>
+            <hr />
+        </div>
+
+        <!--post content-->
+        <div class="col-lg-8 mx-auto lh-base" style="font-size: 1.05rem;">
+            <p class="text-secondary mb-4" style="font-size: 1.1rem">@Html.Raw(@Model.Blog.summary)</p>
+            @if (!string.IsNullOrWhiteSpace(Model.BlogCoverImage.file_path))
+            {
+                <img class="img-fluid mb-4 px-5" src="~/uploads/@Html.Raw(@Model.BlogCoverImage.file_path)" />                
+            }
+                
+
+            <p>@Html.Raw(@Model.Blog.content)</p>
+
+        </div>
+      
+        <!-- back to index -->
+        <div class="col-lg-8 mt-5 mx-auto text-center"> 
+            <a href="/" class="text-decoration-none" style="font-weight:600;color:#333;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-chevron-left me-1" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                </svg>
+                Back to Index
+            </a>
+        </div>
+           
+        <!--author bio-->
+        <div class="col-lg-8 mt-5 mx-auto">
+
+            <hr class="text-secondary mb-5" />
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="https://secure.gravatar.com/avatar/2aa04c08a13d31174445e9ae96badb63" class="img-fluid" />
+                </div>
+                <div class="col-lg-10">
+                    <h4 class="text-black mb-1">Sam Phal</h4>
+                    <span class="fst-italic" style="color: #777">Code Enthusiast. Overlord of CodeCloner. I also like doing Portrait Photography and the Post Processing aspect.</span>
+                </div>
+            </div>
+        <hr class="text-secondary my-5" />
+
+        </div>
+
+        <!--comment form-->
+        <div class="col-lg-12 mx-auto" >
+            <form id="formCommentSubmit" method="post" action="/blog/comment/create">
+                <input type="text" class="d-none" name="BlogComment.blog_id" value="@Model.Blog.blog_id" />
+                <input type="text" class="d-none" name="Blog.slug" value="@Model.Blog.slug" />
+                <div class="row justify-content-center">
+                    <div class="col-md-12 col-lg-10 col-xl-8">
+                        <div class="card">
+                            <div class="card-body bg-light py-3 border-0">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label class="text-black-50 mb-1">Name</label>
+                                        <input name="BlogComment.display_name" class="form-control" />
+                                    </div>
+                                    <div class="col">
+                                        <label class="text-black-50 mb-1">Website</label>
+                                        <input name="BlogComment.user_website" class="form-control"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-outline w-100 mt-3">
+                                    <textarea class="form-control" name="BlogComment.content" rows="4" style="background: #fff;" placeholder="Write a comment"></textarea>
+                                </div>                               
+                                <div class="float-end mt-3">
+                                    @Html.AntiForgeryToken()
+                                    <button id="btnCommentSubmit" type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!--comment container-->
+    @if (ViewBag.Comments != 0)
+    {
+        <div class="container p-5 bg-white shadow-lg mt-5">
+            <div class="col-lg-8 mx-auto">
+
+                @foreach (var item in Model.BlogComments)
+                {
+                    <div class="card mb-4 shadow-sm border-0">
+                        <div class="card-header border-0">
+                            <label class="mb-0 fw-bold me-2"><a href="http://@item.user_website" class="text-decoration-none text-black ">@item.display_name</a></label>                                    
+                            <label class="small mb-0 text-black-50">@item.created_at.ToString("MMMM dd, yyyy hh:mm tt")</label>      
+                        </div>
+                        <div class="card-body">
+                            <p>@item.content</p>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+
+    <!-- Comment Mod Alert Modal -->
+    @if (TempData["DisplayCommentAlert"] != null)
+    {
+        <div class="modal" id="commentModAlert" tabindex="-1"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        Your comments will be published after moderator approval. Thank You!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning btn-sm text-white" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
