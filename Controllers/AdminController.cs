@@ -28,6 +28,7 @@ namespace MyBlog.Controllers
             _blogUserRepository = blogUserRepository;
         }
 
+
         public IActionResult Index()
         {
             AdminViewModel adminViewModel = new AdminViewModel();
