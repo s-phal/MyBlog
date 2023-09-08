@@ -16,8 +16,7 @@ namespace MyBlog.DataAccess
         {
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
-            connectionString = _configuration.GetSection("pgSettings")["pgConnection"];
-
+            connectionString = _configuration.GetSection("ConnectionStrings")["sqlServer"];
         }
 
         public BlogCoverImage GetBlogCoverImageByBlogID(int blogID)

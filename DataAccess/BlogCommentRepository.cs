@@ -10,13 +10,10 @@ namespace MyBlog.DataAccess
         private readonly IConfiguration _configuration;
         private readonly string connectionString;
 
-        //private readonly NpgsqlConnection dbConnection;
-
-
         public BlogCommentRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            connectionString = _configuration.GetSection("pgSettings")["pgConnection"];
+            connectionString = _configuration.GetSection("ConnectionStrings")["sqlServer"];
         }
 
         public IEnumerable<dynamic> GetAllBlogCommentsForAdminCommentTable()

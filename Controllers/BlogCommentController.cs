@@ -2,7 +2,7 @@
 using MyBlog.DataAccess;
 using MyBlog.Models;
 
-namespace SPhalBlog.Controllers
+namespace MyBlog.Controllers
 {
     public class BlogCommentController : Controller
     {

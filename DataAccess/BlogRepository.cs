@@ -14,7 +14,7 @@ namespace MyBlog.DataAccess
         public BlogRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            connectionString = _configuration.GetSection("pgSettings")["pgConnection"];
+            connectionString = _configuration.GetSection("ConnectionStrings")["sqlServer"];
 
         }
 
@@ -202,6 +202,7 @@ namespace MyBlog.DataAccess
                 sqlQuery += sqlQuery = "FROM blog ";
                 sqlQuery += sqlQuery = "LEFT JOIN blog_comment ON blog.blog_id = blog_comment.blog_id ";
                 sqlQuery += sqlQuery = "WHERE 1 = 1 ";
+                sqlQuery += sqlQuery = "AND blog_comment.active_flag = 1 ";
                 sqlQuery += sqlQuery = "GROUP BY blog.blog_id, blog.title, blog.slug, blog.created_at ";
                 sqlQuery += sqlQuery = "ORDER BY created_at DESC ";
 

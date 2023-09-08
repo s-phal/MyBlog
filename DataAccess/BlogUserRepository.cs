@@ -13,8 +13,7 @@ namespace MyBlog.DataAccess
         public BlogUserRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            connectionString = _configuration.GetSection("pgSettings")["pgConnection"];
-
+            connectionString = _configuration.GetSection("ConnectionStrings")["sqlServer"];
         }
 
 

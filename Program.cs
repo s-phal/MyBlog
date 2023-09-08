@@ -11,6 +11,8 @@ namespace MyBlog
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {

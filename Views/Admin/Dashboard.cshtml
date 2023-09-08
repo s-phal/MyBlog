@@ -71,9 +71,9 @@
                             <a href="/admin/blog/edit/@item.blog_id"><svg class="me-2" width="18" height="18" style="fill:#ffc107"><use xlink:href="#edit" /></svg></a>                            
                             <a href="/admin/blog/delete/@item.blog_id" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.blog_id"><svg class="me-2" width="18" height="18" style="fill:#dc3545"><use xlink:href="#delete" /></svg></a>
                         </td>
-                        <td><a href="/blog/@item.slug" class="text-decoration-none text-muted">@item.blog_id</a></td>
-                        <td><a href="/blog/@item.slug" class="text-decoration-none text-muted">@item.title</a></td>
-                        <td><a href="/blog/@item.slug" class="text-decoration-none text-muted">@item.comment_count</a></td>
+                        <td><a href="/blog/@item.slug" target="_blank" class="text-decoration-none text-muted">@item.blog_id</a></td>
+                        <td><a href="/blog/@item.slug" target="_blank" class="text-decoration-none text-muted">@item.title</a></td>
+                        <td><a href="/blog/@item.slug" target="_blank" class="text-decoration-none text-muted">@item.comment_count</a></td>
                         <td class=" text-muted">@CommonLib.ConvertTimeToMonthDayYear(@item.created_at)</td>
                     </tr>
                 }
