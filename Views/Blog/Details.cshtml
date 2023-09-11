@@ -20,7 +20,8 @@
         <!--post content-->
         <div class="col-lg-8 mx-auto lh-base" style="font-size: 1.05rem;">
             <p class="text-secondary mb-4" style="font-size: 1.1rem">@Html.Raw(@Model.Blog.summary)</p>
-            @if (!string.IsNullOrWhiteSpace(Model.BlogCoverImage.file_path))
+            @if (Model.BlogCoverImage != null)
+                @* @if (!string.IsNullOrWhiteSpace(Model.BlogCoverImage.file_path)) *@
             {
                 <img class="img-fluid mb-4 px-5" src="~/uploads/@Html.Raw(@Model.BlogCoverImage.file_path)" />                
             }

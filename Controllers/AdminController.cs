@@ -50,7 +50,11 @@ namespace MyBlog.Controllers
         public IActionResult BlogCreate(Blog blog, BlogTag blogTag, IFormFile uploadedFile)
         {
 
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("BlogCreate", blog);
+            //}
+            if (blog == null || blogTag == null)
             {
                 return View("BlogCreate", blog);
             }
